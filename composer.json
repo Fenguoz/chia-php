@@ -1,0 +1,36 @@
+{
+    "name": "fenguoz/chia-php",
+    "description": "Support Chia's XCH.",
+    "keywords": [
+        "php",
+        "rpc",
+        "chia",
+        "xch"
+    ],
+    "type": "library",
+    "homepage": "https://github.com/Fenguoz/chia-php",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Fenguoz",
+            "email": "243944672@qq.com"
+        }
+    ],
+    "require": {
+        "ionux/phactor": "1.0.8",
+        "kornrunner/keccak": "^1.0"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^5.7 || ^7.5"
+    },
+    "autoload": {
+        "psr-4": {
+            "Chia\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Test\\": "tests/"
+        }
+    }
+}
