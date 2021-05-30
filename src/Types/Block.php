@@ -2,7 +2,7 @@
 
 namespace Chia\Types;
 
-class BlockType
+class Block
 {
     public $block_id;
     public $block_header;

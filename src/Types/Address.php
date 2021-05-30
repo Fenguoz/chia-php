@@ -1,8 +1,7 @@
 <?php
 
-namespace Chia;
+namespace Chia\Types;
 
-use Chia\Types\AddressType;
 use IEXBase\TronAPI\Support\Base58Check;
 use IEXBase\TronAPI\Support\Hash;
 
@@ -16,11 +15,14 @@ class Address
     const ADDRESS_PREFIX = "41";
     const ADDRESS_PREFIX_BYTE = 0x41;
 
-    public function __construct(AddressType $address)
+    public function __construct(string $address = '', string $privateKey = '')
     {
-        $this->privateKey = $address->privateKey;
-        $this->address = $address->address;
-        $this->hexAddress = $address->hexAddress;
+        if (strlen($address) === 0) {
+            throw new \InvalidArgumentException('Address can not be empty');
+        }
+
+        $this->privateKey = $privateKey;
+        $this->address = $address;
     }
 
     /**

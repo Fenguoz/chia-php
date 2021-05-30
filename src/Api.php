@@ -29,6 +29,8 @@ class Api
     {
         if (sizeof($data)) {
             $data = ['json' => $data];
+        }else{
+            $data = ['json' => []];
         }
 
         $stream = (string)$this->getClient()->post($endpoint, $data)->getBody();

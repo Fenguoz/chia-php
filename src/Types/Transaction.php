@@ -2,7 +2,7 @@
 
 namespace Chia\Types;
 
-class TransactionType
+class Transaction
 {
     public $signature = [];
     public $tx_id = '';
@@ -14,5 +14,10 @@ class TransactionType
         $this->tx_id = $txID;
         $this->raw_data = $rawData;
         $this->contract_ret = $contractRet;
+    }
+
+    public function isSigned(): bool
+    {
+        return (bool)sizeof($this->signature);
     }
 }
