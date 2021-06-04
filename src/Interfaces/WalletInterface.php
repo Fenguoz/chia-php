@@ -28,23 +28,23 @@ interface WalletInterface
 
     public function createNewWallet($params);
 
-    public function getWalletBalance($walletId = 1);
+    public function getWalletBalance(int $walletId = 1);
 
-    public function getTransaction();
+    public function getTransaction(string $transactionId);
 
-    public function getTransactions();
+    public function getTransactions(int $walletId);
 
     public function getNextAddress(int $walletId = 1, bool $newAddress = true): Address;
 
-    public function sendTransaction();
+    public function sendTransaction($walletId, $address, $amount, $fee);
 
-    public function createBackup();
+    public function createBackup($filePath);
 
-    public function getTransactionCount();
+    public function getTransactionCount(int $walletId);
 
     public function getFarmedAmount();
 
-    public function farmBlock();
+    public function farmBlock(string $address);
 
     public function getInitialFreezePeriod();
 }

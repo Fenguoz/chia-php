@@ -165,7 +165,7 @@ class Wallet implements WalletInterface
         return true;
     }
 
-    public function getWalletBalance($walletId = 1)
+    public function getWalletBalance(int $walletId = 1)
     {
         $body = $this->_api->post('/get_wallet_balance', [
             'wallet_id' => $walletId
@@ -176,26 +176,28 @@ class Wallet implements WalletInterface
         }
         return $body->wallet_balance;
     }
-    public function getTransaction()
+    public function getTransaction(string $transactionId)
     {
-        // $body = $this->_api->post('/get_transaction', [
-        // ]);
+        $body = $this->_api->post('/get_transaction', [
+            'transaction_id' => $transactionId
+        ]);
 
-        // if ($body->success == false) {
-        //     throw new ChiaErrorException($body->error);
-        // }
-        // return $body;
+        if ($body->success == false) {
+            throw new ChiaErrorException($body->error);
+        }
+        return $body;
     }
 
-    public function getTransactions()
+    public function getTransactions(int $walletId)
     {
-        // $body = $this->_api->post('/get_transactions', [
-        // ]);
+        $body = $this->_api->post('/get_transactions', [
+            'wallet_id' => $walletId
+        ]);
 
-        // if ($body->success == false) {
-        //     throw new ChiaErrorException($body->error);
-        // }
-        // return $body;
+        if ($body->success == false) {
+            throw new ChiaErrorException($body->error);
+        }
+        return $body->transactions;
     }
 
     public function getNextAddress(int $walletId = 1, bool $newAddress = true): Address
@@ -211,69 +213,76 @@ class Wallet implements WalletInterface
         return new Address($body->address);
     }
 
-    public function sendTransaction()
+    public function sendTransaction($walletId, $address, $amount, $fee)
     {
-        // $body = $this->_api->post('/send_transaction', [
-        // ]);
+        $body = $this->_api->post('/send_transaction', [
+            'wallet_id' => $walletId,
+            'address' => $address,
+            'amount' => $amount,
+            'fee' => $fee
+        ]);
 
-        // if ($body->success == false) {
-        //     throw new ChiaErrorException($body->error);
-        // }
-        // return $body;
+        if ($body->success == false) {
+            throw new ChiaErrorException($body->error);
+        }
+        unset($body->success);
+        return $body;
     }
 
-    public function createBackup()
+    public function createBackup($filePath)
     {
-        // $body = $this->_api->post('/create_backup', [
-        // ]);
+        $body = $this->_api->post('/create_backup', [
+            'file_path' => $filePath
+        ]);
 
-        // if ($body->success == false) {
-        //     throw new ChiaErrorException($body->error);
-        // }
-        // return $body;
+        if ($body->success == false) {
+            throw new ChiaErrorException($body->error);
+        }
+        return $body;
     }
 
-    public function getTransactionCount()
+    public function getTransactionCount(int $walletId)
     {
-        // $body = $this->_api->post('/get_transaction_count', [
-        // ]);
+        $body = $this->_api->post('/get_transaction_count', [
+            'wallet_id' => $walletId
+        ]);
 
-        // if ($body->success == false) {
-        //     throw new ChiaErrorException($body->error);
-        // }
-        // return $body;
+        if ($body->success == false) {
+            throw new ChiaErrorException($body->error);
+        }
+        return $body->count;
     }
 
     public function getFarmedAmount()
     {
-        // $body = $this->_api->post('/get_farmed_amount', [
-        // ]);
+        $body = $this->_api->post('/get_farmed_amount');
 
-        // if ($body->success == false) {
-        //     throw new ChiaErrorException($body->error);
-        // }
-        // return $body;
+        if ($body->success == false) {
+            throw new ChiaErrorException($body->error);
+        }
+        unset($body->success);
+        return $body;
     }
 
-    public function farmBlock()
+    public function farmBlock(string $address)
     {
-        // $body = $this->_api->post('/farm_block', [
-        // ]);
+        $body = $this->_api->post('/farm_block', [
+            'address' => $address
+        ]);
 
-        // if ($body->success == false) {
-        //     throw new ChiaErrorException($body->error);
-        // }
-        // return $body;
+        if ($body->success == false) {
+            throw new ChiaErrorException($body->error);
+        }
+        return true;
     }
 
     public function getInitialFreezePeriod()
     {
-        // $body = $this->_api->post('/get_initial_freeze_period', [
-        // ]);
+        $body = $this->_api->post('/get_initial_freeze_period');
 
-        // if ($body->success == false) {
-        //     throw new ChiaErrorException($body->error);
-        // }
-        // return $body;
+        if ($body->success == false) {
+            throw new ChiaErrorException($body->error);
+        }
+        return $body->INITIAL_FREEZE_END_TIMESTAMP;
     }
 }
