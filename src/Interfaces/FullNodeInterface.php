@@ -8,7 +8,7 @@ interface FullNodeInterface
 
     public function getBlock(string $headerHash);
 
-    public function getBlocks(int $start, int $end);
+    public function getBlocks(int $start, int $end, $excludeHeaderHash = null);
 
     public function getBlockRecordByHeight(int $height);
 

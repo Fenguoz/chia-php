@@ -34,12 +34,13 @@ class FullNode implements FullNodeInterface
         return $body->block;
     }
 
-    public function getBlocks(int $start, int $end)
+    public function getBlocks(int $start, int $end, $excludeHeaderHash = null)
     {
-        $body = $this->_api->post('/get_blocks', [
-            'start' => $start,
-            'end' => $end
-        ]);
+        $params = [];
+        $params['start'] = $start;
+        $params['end'] = $end;
+        if ($excludeHeaderHash) $params['exclude_header_hash'] = $excludeHeaderHash;
+        $body = $this->_api->post('/get_blocks', $params);
 
         if ($body->success == false) {
             throw new ChiaErrorException($body->error);
