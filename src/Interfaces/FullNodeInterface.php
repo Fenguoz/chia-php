@@ -8,33 +8,33 @@ interface FullNodeInterface
 
     public function getBlock(string $headerHash);
 
-    public function getBlocks();
+    public function getBlocks(int $start, int $end);
 
     public function getBlockRecordByHeight(int $height);
 
-    public function getBlockRecord();
+    public function getBlockRecord(string $headerHash);
 
-    public function getBlockRecords();
+    public function getBlockRecords(int $start, int $end);
 
     public function getUnfinishedBlockHeaders();
 
-    public function getNetworkSpace();
+    public function getNetworkSpace(string $newerBlockHeaderHash, string $olderBlockHeaderHash);
 
-    public function getAdditionsAndRemovals();
+    public function getAdditionsAndRemovals(string $headerHash);
 
     public function getInitialFreezePeriod();
 
     public function getNetworkInfo();
 
-    public function getCoinRecordsByPuzzleHash();
+    public function getCoinRecordsByPuzzleHash(string $puzzleHash, int $startHeight = null, int $endHeight = null, $includeSpentCoins = null);
 
-    public function getCoinRecordByName();
+    public function getCoinRecordByName(string $coinName);
 
-    public function pushTx();
+    public function pushTx(array $spendBundle);
 
     public function getAllMempoolTxIds();
 
     public function getAllMempoolItems();
 
-    public function getMempoolItemByTxId();
+    public function getMempoolItemByTxId(string $txId);
 }
