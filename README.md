@@ -96,4 +96,4 @@ $info = $wallet->getNetworkInfo();
 
 ## 🌟🌟
 
-[![Stargazers over time](https://starchart.cc/Fenguoz/tron-php.svg)](https://starchart.cc/Fenguoz/tron-php)
+[![Stargazers over time](https://starchart.cc/Fenguoz/chia-php.svg)](https://starchart.cc/Fenguoz/chia-php)
