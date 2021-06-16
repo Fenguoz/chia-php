@@ -13,6 +13,18 @@ class Wallet implements WalletInterface
         $this->_api = $_api;
     }
 
+    public function logIn(int $fingerprint)
+    {
+        $body = $this->_api->post('/log_in', [
+            'fingerprint' => $fingerprint
+        ]);
+
+        if ($body->success == false) {
+            throw new ChiaErrorException($body->error);
+        }
+        return true;
+    }
+
     public function getPublicKeys()
     {
         $body = $this->_api->post('/get_public_keys');
@@ -30,7 +42,7 @@ class Wallet implements WalletInterface
         ]);
 
         if ($body->success == false) {
-            throw new ChiaErrorException($body->error);
+            throw new ChiaErrorException('The fingerprint not exist');
         }
         return $body->private_key;
     }
@@ -45,10 +57,11 @@ class Wallet implements WalletInterface
         return $body->mnemonic;
     }
 
-    public function addKey(array $mnemonic)
+    public function addKey(array $mnemonic, string $type = 'new_wallet')
     {
         $body = $this->_api->post('/add_key', [
-            'mnemonic' => implode(' ', $mnemonic)
+            'mnemonic' => $mnemonic,
+            'type' => $type,
         ]);
 
         if ($body->success == false) {
@@ -165,7 +178,7 @@ class Wallet implements WalletInterface
         return true;
     }
 
-    public function getWalletBalance(int $walletId = 1)
+    public function getWalletBalance(int $walletId)
     {
         $body = $this->_api->post('/get_wallet_balance', [
             'wallet_id' => $walletId
@@ -185,6 +198,7 @@ class Wallet implements WalletInterface
         if ($body->success == false) {
             throw new ChiaErrorException($body->error);
         }
+        unset($body->success);
         return $body;
     }
 
@@ -200,7 +214,7 @@ class Wallet implements WalletInterface
         return $body->transactions;
     }
 
-    public function getNextAddress(int $walletId = 1, bool $newAddress = true): Address
+    public function getNextAddress(int $walletId, bool $newAddress = true): Address
     {
         $body = $this->_api->post('/get_next_address', [
             'wallet_id' => $walletId,
@@ -284,5 +298,15 @@ class Wallet implements WalletInterface
             throw new ChiaErrorException($body->error);
         }
         return $body->INITIAL_FREEZE_END_TIMESTAMP;
+    }
+
+    public function createSignedTransaction()
+    {
+        $body = $this->_api->post('/create_signed_transaction');
+
+        if ($body->success == false) {
+            throw new ChiaErrorException($body->error);
+        }
+        return $body;
     }
 }
