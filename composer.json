@@ -16,7 +16,9 @@
             "email": "243944672@qq.com"
         }
     ],
-    "require": {},
+    "require": {
+        "guzzlehttp/guzzle": "^6.0 || ^7.0"
+    },
     "require-dev": {
         "phpunit/phpunit": "^5.7 || ^7.5"
     },
