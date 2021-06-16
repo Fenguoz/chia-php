@@ -145,11 +145,26 @@ class FullNode implements FullNodeInterface
     public function getCoinRecordsByPuzzleHash(string $puzzleHash, int $startHeight = null, int $endHeight = null, $includeSpentCoins = null)
     {
         $params = [];
-        $params['puzzleHash'] = $puzzleHash;
-        if ($startHeight) $params['start_height'] = $puzzleHash;
+        $params['puzzle_hash'] = $puzzleHash;
+        if ($startHeight) $params['start_height'] = $startHeight;
         if ($endHeight) $params['end_height'] = $endHeight;
         if ($includeSpentCoins) $params['include_spent_coins'] = $includeSpentCoins;
         $body = $this->_api->post('/get_coin_records_by_puzzle_hash', $params);
+
+        if ($body->success == false) {
+            throw new ChiaErrorException($body->error);
+        }
+        return $body->coin_records;
+    }
+
+    public function getCoinRecordsByPuzzleHashes(array $puzzleHashs, int $startHeight = null, int $endHeight = null, $includeSpentCoins = null)
+    {
+        $params = [];
+        $params['puzzle_hashes'] = $puzzleHashs;
+        if ($startHeight) $params['start_height'] = $startHeight;
+        if ($endHeight) $params['end_height'] = $endHeight;
+        if ($includeSpentCoins) $params['include_spent_coins'] = $includeSpentCoins;
+        $body = $this->_api->post('/get_coin_records_by_puzzle_hashes', $params);
 
         if ($body->success == false) {
             throw new ChiaErrorException($body->error);
