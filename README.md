@@ -89,28 +89,28 @@ composer require fenguoz/chia-php
 
 ``` php
 /* 节点(Full Node) */
-$fullNode = [
+$fullNodeConfig = [
     'base_uri' => 'https://localhost:8555',
     'verify' => false,
     'cert' => '/your/private_full_node.crt/path',// private_full_node.crt
     'ssl_key' => '/your/private_full_node.key/path',// private_full_node.key
 ];
 
-$api = new \Chia\Api(new \GuzzleHttp\Client($fullNode));
+$api = new \Chia\Api(new \GuzzleHttp\Client($fullNodeConfig));
 $fullNode = new Chia\FullNode($api);
 $info = $fullNode->getNetworkInfo();
 // $info->network_name      mainnet
 // $info->network_prefix    xch
 
 /* 钱包(Wallet) */
-$fullNode = [
+$walletConfig = [
     'base_uri' => 'https://localhost:9256',
     'verify' => false,
     'cert' => '/your/private_wallet.crt/path',// private_wallet.crt
     'ssl_key' => '/your/private_wallet.key/path', // private_wallet.key
 ];
 
-$api = new \Chia\Api(new \GuzzleHttp\Client($fullNode));
+$api = new \Chia\Api(new \GuzzleHttp\Client($walletConfig));
 $wallet = new Chia\Wallet($api);
 $info = $wallet->getNetworkInfo();
 ```
