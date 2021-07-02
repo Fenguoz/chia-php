@@ -81,7 +81,6 @@ Chia-PHP 支持奇亚的 XCH 中获取当前区块链信息、获取当前高度
 ### 安装
 
 ``` php
-// 未开放
 composer require fenguoz/chia-php
 ```
 
